@@ -7,13 +7,40 @@ import CarteGareTouriste from "../components/carte-gare-touriste.astro";
 ---
 
 <Layout>
-  <img src="/src/assets/train.webp" alt="">
-  <h1>Est ce que les gares aident au tourisme</h1>
-  <p>
-  Dans le monde actuel, les <strong>transports en commun</strong> occupent une place <strong>essentielle</strong> pour permettre aux individus de se déplacer <strong>rapidement</strong> et à <strong>moindre coût</strong>. Ils facilitent l’accès aux <strong>villes</strong> et aux <strong>sites touristiques</strong>, rendant les voyages plus accessibles à un large public. Grâce à des <strong>réseaux bien développés</strong>, les touristes peuvent explorer de nombreuses destinations sans dépendre de la <strong>voiture individuelle</strong>. Ces modes de transport contribuent aussi à réduire l’<strong>impact environnemental</strong> lié aux déplacements. Cependant, l’<strong>efficacité</strong> des transports en commun varie selon les régions, influençant ainsi l’<strong>attractivité touristique</strong>. Il est donc intéressant d’examiner dans quelle mesure ces infrastructures soutiennent réellement le secteur du tourisme.
+  <div class="relative w-full h-screen overflow-hidden">
+  <img
+    src="/src/assets/train.webp"
+    alt="Train"
+    class="w-full h-full object-cover"
+  />
+  <h1
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:text-2xl font-bold text-white bg-[#54278f]/70 px-8 py-4 rounded-lg shadow-lg max-w-[90%] text-center"
+  >
+    Est-ce que les gares contribuent au développement du tourisme ?
+  </h1>
+</div>
+<br><br>
+  <p class="mt-8 max-w-3xl mx-auto text-[#54278f] text-lg leading-relaxed">
+    Dans le monde actuel, les <strong>transports en commun</strong> occupent une place
+    <strong>essentielle</strong> pour permettre aux individus de se déplacer
+    <strong>rapidement</strong> et à <strong>moindre coût</strong>. Ils facilitent
+    l’accès aux <strong>villes</strong> et aux <strong>sites touristiques</strong>,
+    rendant les voyages plus accessibles à un large public. Grâce à des
+    <strong>réseaux bien développés</strong>, les touristes peuvent explorer de
+    nombreuses destinations sans dépendre de la <strong>voiture individuelle</strong>.
+    Ces modes de transport contribuent aussi à réduire l’<strong>impact environnemental</strong>
+    lié aux déplacements. Cependant, l’<strong>efficacité</strong> des transports en
+    commun varie selon les régions, influençant ainsi l’<strong>attractivité touristique</strong>.
+    Il est donc intéressant d’examiner dans quelle mesure ces infrastructures
+    soutiennent réellement le secteur du tourisme.
   </p>
-  
-  <CarteGareTouriste />
-  <Bouton>En savoir plus</Bouton>
-  
-</Layout> 
+<br>
+  <div class="mt-10 max-w-5xl mx-auto">
+    <CarteGareTouriste />
+  </div>
+<br><br>
+  <div class="mt-8 max-w-3xl mx-auto text-center">
+    <Bouton>En savoir plus</Bouton>
+  </div>
+  <br><br><br>
+</Layout>
