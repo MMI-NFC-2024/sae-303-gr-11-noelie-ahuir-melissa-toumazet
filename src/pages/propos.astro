@@ -1,0 +1,92 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<style>
+  section {
+    max-width: 720px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f9f9f9 0%, #c2addf 100%);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    color: #222;
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    color: #54278f;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1.2px;
+    animation: fadeInDown 1s ease forwards;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 1s ease forwards;
+    opacity: 0;
+  }
+
+  p:nth-of-type(1) {
+    animation-delay: 0.4s;
+  }
+  p:nth-of-type(2) {
+    animation-delay: 0.8s;
+  }
+  p:nth-of-type(3) {
+    animation-delay: 1.2s;
+  }
+
+  .font-bold {
+    font-weight: 700;
+    color: #421e71;
+  }
+
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<Layout>
+  <section>
+    <h1>A propos de nous</h1>
+
+    <p>
+      Nous sommes des <span class="font-bold">créateurs d’information</span> passionnés, dédiés à fournir des contenus pertinents et fiables.<br>
+      <br>Notre mission est d’informer le public sur les dernières <span class="font-bold">news</span>, actualités et sujets variés,<br>
+      allant de la technologie à la culture, en passant par l’environnement et la société.
+    </p>
+    <p>
+      Grâce à une approche rigoureuse et accessible, nous souhaitons permettre <br>
+      à chacun de mieux comprendre le monde qui l’entoure.<br>
+      Que ce soit à travers des articles, des analyses ou des reportages, nous nous engageons<br>
+      à transmettre des informations claires et impactantes.
+    </p>
+    <p>
+      Notre ambition est de créer un espace où le savoir est partagé,<br>
+      favorisant ainsi le dialogue et l’échange d’idées pour une société mieux informée et plus consciente.
+    </p>
+  </section>
+</Layout>
+
