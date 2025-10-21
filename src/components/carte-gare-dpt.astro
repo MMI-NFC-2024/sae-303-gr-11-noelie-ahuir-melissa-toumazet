@@ -1,0 +1,73 @@
+---
+---
+
+<style>
+  #carte-gares {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: #54278f;
+  }
+
+  #plot-carte {
+    display: flex;
+    justify-content: center;
+  }
+</style>
+
+<div id="carte-gares">
+  <h2>Répartition des gares par département</h2>
+  <div id="plot-carte"></div>
+</div>
+
+<script type="module">
+  import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+  import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+
+  async function initCarte() {
+    // ✅ Chargement du GeoJSON enrichi
+    const departementsData = await fetch("/departementsData.json").then(r => r.json());
+    const departementsGeoJSON = await fetch("/departements.geojson").then(r => r.json());
+
+    console.log("✅ Fichiers chargés :", {
+      geojson: departementsGeoJSON.features?.length ?? 0,
+      data: departementsData.features?.length ?? 0
+    });
+
+    // ✅ Création du graphique Plot
+    const chart = Plot.plot({
+      width: 1000,
+      height: 900,
+      projection: {
+        type: "mercator",
+        domain: departementsGeoJSON
+      },
+      color: {
+        type: "quantile",
+        n: 6,
+        scheme: "Purples",
+        label: "Nombre de gares par département",
+        legend: true
+      },
+      marks: [
+        Plot.geo(departementsData, {
+          fill: d => d.properties.gares,
+          stroke: "#48217a",
+          title: d => `${d.properties.nom}\n${d.properties.gares} gares`,
+          tip: true
+        })
+      ]
+    });
+
+    document.getElementById("plot-carte").append(chart);
+  }
+
+  initCarte();
+</script>
