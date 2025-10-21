@@ -1,0 +1,378 @@
+[
+    {
+        "departement": "Nord",
+        "count": 111
+    },
+    {
+        "departement": "Bas-Rhin",
+        "count": 94
+    },
+    {
+        "departement": "Yvelines",
+        "count": 79
+    },
+    {
+        "departement": "Pas-de-Calais",
+        "count": 79
+    },
+    {
+        "departement": "Oise",
+        "count": 69
+    },
+    {
+        "departement": "Seine-et-Marne",
+        "count": 69
+    },
+    {
+        "departement": "Gironde",
+        "count": 68
+    },
+    {
+        "departement": "Val-d'Oise",
+        "count": 68
+    },
+    {
+        "departement": "Essonne",
+        "count": 63
+    },
+    {
+        "departement": "Rhône",
+        "count": 60
+    },
+    {
+        "departement": "Loire-Atlantique",
+        "count": 56
+    },
+    {
+        "departement": "Haut-Rhin",
+        "count": 56
+    },
+    {
+        "departement": "Meurthe-et-Moselle",
+        "count": 47
+    },
+    {
+        "departement": "Ille-et-Vilaine",
+        "count": 46
+    },
+    {
+        "departement": "Indre-et-Loire",
+        "count": 45
+    },
+    {
+        "departement": "Seine-Saint-Denis",
+        "count": 44
+    },
+    {
+        "departement": "Bouches-du-Rhône",
+        "count": 44
+    },
+    {
+        "departement": "Moselle",
+        "count": 44
+    },
+    {
+        "departement": "Haute-Garonne",
+        "count": 44
+    },
+    {
+        "departement": "Isère",
+        "count": 42
+    },
+    {
+        "departement": "Haute-Savoie",
+        "count": 39
+    },
+    {
+        "departement": "Ain",
+        "count": 38
+    },
+    {
+        "departement": "Dordogne",
+        "count": 37
+    },
+    {
+        "departement": "Doubs",
+        "count": 37
+    },
+    {
+        "departement": "Seine-Maritime",
+        "count": 37
+    },
+    {
+        "departement": "Somme",
+        "count": 36
+    },
+    {
+        "departement": "Saône-et-Loire",
+        "count": 36
+    },
+    {
+        "departement": "Aisne",
+        "count": 35
+    },
+    {
+        "departement": "Haute-Vienne",
+        "count": 35
+    },
+    {
+        "departement": "Côte-d'Or",
+        "count": 34
+    },
+    {
+        "departement": "Alpes-Maritimes",
+        "count": 33
+    },
+    {
+        "departement": "Pyrénées-Atlantiques",
+        "count": 32
+    },
+    {
+        "departement": "Hauts-de-Seine",
+        "count": 32
+    },
+    {
+        "departement": "Côtes-d'Armor",
+        "count": 32
+    },
+    {
+        "departement": "Loir-et-Cher",
+        "count": 29
+    },
+    {
+        "departement": "Gard",
+        "count": 28
+    },
+    {
+        "departement": "Eure-et-Loir",
+        "count": 28
+    },
+    {
+        "departement": "Loire",
+        "count": 28
+    },
+    {
+        "departement": "Pyrénées-Orientales",
+        "count": 28
+    },
+    {
+        "departement": "Sarthe",
+        "count": 28
+    },
+    {
+        "departement": "Paris",
+        "count": 28
+    },
+    {
+        "departement": "Savoie",
+        "count": 27
+    },
+    {
+        "departement": "Var",
+        "count": 26
+    },
+    {
+        "departement": "Charente-Maritime",
+        "count": 26
+    },
+    {
+        "departement": "Puy-de-Dôme",
+        "count": 26
+    },
+    {
+        "departement": "Ardennes",
+        "count": 25
+    },
+    {
+        "departement": "Yonne",
+        "count": 25
+    },
+    {
+        "departement": "Nièvre",
+        "count": 25
+    },
+    {
+        "departement": "Vienne",
+        "count": 24
+    },
+    {
+        "departement": "Marne",
+        "count": 24
+    },
+    {
+        "departement": "Vosges",
+        "count": 22
+    },
+    {
+        "departement": "Hérault",
+        "count": 21
+    },
+    {
+        "departement": "Lozère",
+        "count": 21
+    },
+    {
+        "departement": "Jura",
+        "count": 21
+    },
+    {
+        "departement": "Maine-et-Loire",
+        "count": 21
+    },
+    {
+        "departement": "Loiret",
+        "count": 21
+    },
+    {
+        "departement": "Corrèze",
+        "count": 20
+    },
+    {
+        "departement": "Calvados",
+        "count": 20
+    },
+    {
+        "departement": "Allier",
+        "count": 20
+    },
+    {
+        "departement": "Val-de-Marne",
+        "count": 19
+    },
+    {
+        "departement": "Aveyron",
+        "count": 19
+    },
+    {
+        "departement": "Morbihan",
+        "count": 19
+    },
+    {
+        "departement": "Finistère",
+        "count": 19
+    },
+    {
+        "departement": "Tarn",
+        "count": 18
+    },
+    {
+        "departement": "Haute-Loire",
+        "count": 18
+    },
+    {
+        "departement": "Lot",
+        "count": 18
+    },
+    {
+        "departement": "Vaucluse",
+        "count": 18
+    },
+    {
+        "departement": "Cher",
+        "count": 17
+    },
+    {
+        "departement": "Eure",
+        "count": 17
+    },
+    {
+        "departement": "Vendée",
+        "count": 16
+    },
+    {
+        "departement": "Drôme",
+        "count": 16
+    },
+    {
+        "departement": "Landes",
+        "count": 15
+    },
+    {
+        "departement": "Cantal",
+        "count": 14
+    },
+    {
+        "departement": "Deux-Sèvres",
+        "count": 14
+    },
+    {
+        "departement": "Tarn-et-Garonne",
+        "count": 13
+    },
+    {
+        "departement": "Aude",
+        "count": 13
+    },
+    {
+        "departement": "Ariège",
+        "count": 12
+    },
+    {
+        "departement": "Indre",
+        "count": 12
+    },
+    {
+        "departement": "Creuse",
+        "count": 12
+    },
+    {
+        "departement": "Orne",
+        "count": 11
+    },
+    {
+        "departement": "Meuse",
+        "count": 11
+    },
+    {
+        "departement": "Territoire de Belfort",
+        "count": 11
+    },
+    {
+        "departement": "Lot-et-Garonne",
+        "count": 10
+    },
+    {
+        "departement": "Hautes-Alpes",
+        "count": 10
+    },
+    {
+        "departement": "Manche",
+        "count": 10
+    },
+    {
+        "departement": "Haute-Marne",
+        "count": 10
+    },
+    {
+        "departement": "Charente",
+        "count": 9
+    },
+    {
+        "departement": "Mayenne",
+        "count": 8
+    },
+    {
+        "departement": "Haute-Saône",
+        "count": 7
+    },
+    {
+        "departement": "Hautes-Pyrénées",
+        "count": 6
+    },
+    {
+        "departement": "Aube",
+        "count": 5
+    },
+    {
+        "departement": "Gers",
+        "count": 4
+    },
+    {
+        "departement": "Alpes-de-Haute-Provence",
+        "count": 4
+    },
+    {
+        "departement": "Ardèche",
+        "count": 1
+    }
+]
