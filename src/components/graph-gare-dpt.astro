@@ -1,0 +1,88 @@
+---
+---
+
+<style>
+  #graphique-gares {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 2rem auto;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: #54278f;
+  }
+
+  #plot-gares {
+    overflow-x: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+</style>
+
+<div id="graphique-gares">
+  <h2>Nombre de gares par département</h2>
+  <div id="plot-gares"></div>
+</div>
+
+<script type="module">
+  import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+  import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+
+  async function initGraphique() {
+    // ✅ Chargement du fichier JSON déjà agrégé (avec le bon nom)
+    const garesParDepartementNom = await fetch("/garesParDepartementNom.json").then(r => r.json());
+
+    console.log(`✅ Données chargées : ${garesParDepartementNom.length} départements`);
+
+    // ✅ Création du graphique
+    const chart = Plot.plot({
+      width: 2000,
+      height: 700,
+      marginBottom: 270,
+      marginTop: 50,
+
+      y: {
+        label: "Nombre de gares",
+        labelOffset: 40,
+        tickSize: 6,
+        tickFormat: "d"
+      },
+      x: {
+        label: null,
+        domain: garesParDepartementNom
+          .sort((a, b) => b.count - a.count)
+          .map(d => d.departement),
+        tickRotate: -45,
+        tickSize: 0
+      },
+      color: {
+        type: "quantize",
+        domain: [0, d3.max(garesParDepartementNom, d => d.count)],
+        range: d3.schemePurples[6],
+        label: "Nombre de gares"
+      },
+      marks: [
+        Plot.barY(garesParDepartementNom, {
+          x: "departement",
+          y: "count",
+          fill: d => d.count,
+          title: d => `${d.departement} : ${d.count} gares`
+        })
+      ],
+      style: {
+        fontSize: "20px",
+        fontWeight: "bold"
+      }
+    });
+
+    document.getElementById("plot-gares").append(chart);
+  }
+
+  initGraphique();
+</script>
