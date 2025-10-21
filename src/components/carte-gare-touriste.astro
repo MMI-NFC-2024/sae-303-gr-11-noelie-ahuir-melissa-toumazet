@@ -1,0 +1,148 @@
+---
+---
+
+<style>
+  .select-couche {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #9d99c7;
+    background: #f9f8ff;
+    font-size: 1rem;
+  }
+
+  #plot-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .legende {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .legende-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .dot.gares {
+    background: #8fe9ff;
+  }
+
+  .dot.tourisme {
+    background: #54278f;
+  }
+</style>
+
+<div id="plot-container">
+  <select id="select-couche" class="select-couche">
+    <option value="Toutes">Toutes</option>
+    <option value="Gares">Gares</option>
+    <option value="Tourisme">Tourisme</option>
+  </select>
+
+  <div id="map-plot"></div>
+
+  <div class="legende">
+    <div class="legende-item"><span class="dot gares"></span> Gares</div>
+    <div class="legende-item"><span class="dot tourisme"></span> Tourisme</div>
+  </div>
+</div>
+
+<script type="module">
+  import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+  import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+
+  async function initCarte() {
+    const [departements, garesValides, tourismesMetropole] = await Promise.all([
+      fetch("/departements.geojson").then(r => r.json()),
+      fetch("/garesValides.json").then(r => r.json()),
+      fetch("/tourismesMetropole.json").then(r => r.json())
+    ]);
+
+    console.log("✅ Fichiers chargés :", {
+      departements: departements.features?.length ?? "inconnu",
+      gares: garesValides.length,
+      tourisme: tourismesMetropole.length
+    });
+
+    const container = document.getElementById("map-plot");
+    const select = document.getElementById("select-couche");
+
+    function renderCarte(couche) {
+      container.innerHTML = "";
+
+      const chart = Plot.plot({
+        width: 1000,
+        height: 800,
+        projection: {
+          type: "mercator",
+          domain: departements
+        },
+        marks: [
+          Plot.geo(departements, {
+            fill: "#f2f0f7",
+            stroke: "#9d99c7"
+          }),
+
+          ...((couche === "Toutes" || couche === "Gares")
+            ? [
+                Plot.dot(garesValides, {
+                  x: d => d.position_geographique.lon,
+                  y: d => d.position_geographique.lat,
+                  r: 3,
+                  fill: "#8fe9ff",
+                  opacity: 1,
+                  title: d => `Gare : ${d.nom}`,
+                  tip: true
+                })
+              ]
+            : []),
+
+          ...((couche === "Toutes" || couche === "Tourisme")
+            ? [
+                Plot.dot(tourismesMetropole, {
+                  x: d => d.Longitude,
+                  y: d => d.Latitude,
+                  r: 1.3,
+                  fill: "#54278f",
+                  opacity: 0.4,
+                  title: d => `Lieu touristique : ${d.Nom ?? "Inconnu"}`,
+                  tip: true
+                })
+              ]
+            : [])
+        ]
+      });
+
+      container.append(chart);
+    }
+
+    renderCarte("Toutes");
+
+    select.addEventListener("change", e => renderCarte(e.target.value));
+  }
+
+  initCarte();
+</script>
