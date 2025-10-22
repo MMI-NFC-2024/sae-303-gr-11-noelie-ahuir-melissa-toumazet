@@ -1,92 +1,93 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Bouton from "../components/bouton.astro";
 ---
 
-<style>
-  section {
-    max-width: 720px;
-    margin: 3rem auto;
-    padding: 2rem;
-    background: linear-gradient(135deg, #f9f9f9 0%, #c2addf 100%);
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    color: #222;
-    line-height: 1.6;
-  }
-
-  h1 {
-    font-size: 2.8rem;
-    color: #54278f;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    letter-spacing: 1.2px;
-    animation: fadeInDown 1s ease forwards;
-  }
-
-  p {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    animation: fadeInUp 1s ease forwards;
-    opacity: 0;
-  }
-
-  p:nth-of-type(1) {
-    animation-delay: 0.4s;
-  }
-  p:nth-of-type(2) {
-    animation-delay: 0.8s;
-  }
-  p:nth-of-type(3) {
-    animation-delay: 1.2s;
-  }
-
-  .font-bold {
-    font-weight: 700;
-    color: #421e71;
-  }
-
-  @keyframes fadeInDown {
-    0% {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
-
 <Layout>
-  <section>
-    <h1>A propos de nous</h1>
+  <section
+    class="max-w-3xl mx-auto my-12 p-8 bg-gradient-to-br from-[#f9f9f9] to-[#c2addf] rounded-2xl shadow-lg text-gray-800 leading-relaxed text-justify p-20"
+  >
+    <h1
+      class="text-3xl sm:text-4xl font-extrabold text-[#54278f] text-center mb-8 tracking-wide animate-fade-down"
+    >
+      À propos de nous
+    </h1>
 
-    <p>
-      Nous sommes des <span class="font-bold">créateurs d’information</span> passionnés, dédiés à fournir des contenus pertinents et fiables.<br>
-      <br>Notre mission est d’informer le public sur les dernières <span class="font-bold">news</span>, actualités et sujets variés,<br>
-      allant de la technologie à la culture, en passant par l’environnement et la société.
+    <p
+      class="text-base sm:text-lg mb-6 opacity-0 animate-fade-up animation-delay-[400ms]"
+    >
+      Nous sommes des <span class="font-bold text-[#421e71]">créateurs d’information</span> passionnés,
+      dédiés à fournir des contenus pertinents et fiables.<br><br>
+      Notre mission est d’informer le public sur les dernières
+      <span class="font-bold text-[#421e71]"> actualités </span> et sujets variés, allant de la technologie à la culture,
+      en passant par l’environnement et la société.
     </p>
-    <p>
-      Grâce à une approche rigoureuse et accessible, nous souhaitons permettre <br>
-      à chacun de mieux comprendre le monde qui l’entoure.<br>
-      Que ce soit à travers des articles, des analyses ou des reportages, nous nous engageons<br>
-      à transmettre des informations claires et impactantes.
+
+    <p
+      class="text-base sm:text-lg mb-6 opacity-0 animate-fade-up animation-delay-[800ms]"
+    >
+      Grâce à une approche rigoureuse et accessible, nous souhaitons permettre à chacun de mieux comprendre
+      le monde qui l’entoure.<br>
+      Que ce soit à travers des articles, des analyses ou des reportages, nous nous engageons à transmettre
+      des informations <span class="font-bold text-[#421e71]">claires et impactantes</span>.
     </p>
-    <p>
-      Notre ambition est de créer un espace où le savoir est partagé,<br>
-      favorisant ainsi le dialogue et l’échange d’idées pour une société mieux informée et plus consciente.
+
+    <p
+      class="text-base sm:text-lg mb-8 opacity-0 animate-fade-up animation-delay-[1200ms]"
+    >
+      Notre ambition est de créer un espace où le savoir est partagé, favorisant ainsi le dialogue et l’échange d’idées
+      pour une société mieux informée et plus consciente.
     </p>
+
+    <div class="flex justify-center">
+      <a href="/contact">
+        <Bouton>Nous contacter</Bouton>
+      </a>
+    </div>
   </section>
-</Layout>
 
+  <!-- Animations globales -->
+  <style is:global>
+    @keyframes fade-down {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-down {
+      animation: fade-down 1s ease forwards;
+    }
+
+    .animate-fade-up {
+      animation: fade-up 1s ease forwards;
+      animation-duration: 1s;
+    }
+
+    /* ⏱️ Délais personnalisés pour chaque paragraphe */
+    .animation-delay-\[400ms\] {
+      animation-delay: 0.4s;
+    }
+    .animation-delay-\[800ms\] {
+      animation-delay: 0.8s;
+    }
+    .animation-delay-\[1200ms\] {
+      animation-delay: 1.2s;
+    }
+  </style>
+</Layout>
