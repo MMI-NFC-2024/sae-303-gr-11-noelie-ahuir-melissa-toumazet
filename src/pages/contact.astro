@@ -1,0 +1,101 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Bouton from "../components/bouton.astro";
+---
+
+<Layout>
+  <section
+    style="
+      background: linear-gradient(135deg, #e1f9ff 0%, #8fe9ff 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    "
+  >
+    <div
+      style="
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem 3rem;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      "
+    >
+      <h1
+        style="
+          color: #54278f;
+          text-align: center;
+          margin-bottom: 1.5rem;
+        "
+      >
+        Contactez-nous
+      </h1>
+      <br>
+      <p>Si vous avez des idées à nous partager pour un prochain projet ou des remarques à nous faire vous pouvez nous contacter ici !<br><br>
+    Merci beaucoup ! <br><br><br>
+    </p>
+
+      <form
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        "
+      >
+        <label style="color: #54278f; font-weight: 600;">
+          Pseudo
+          <input
+            type='text'
+            name='name'
+            required
+            style='
+              width: 100%;
+              padding: 0.75rem;
+              border: 2px solid #8fe9ff;
+              border-radius: 0.5rem;
+              outline: none;
+            '
+          />
+        </label>
+
+        <label style="color: #54278f; font-weight: 600;">
+          Email
+          <input
+            type='email'
+            name='email'
+            required
+            style='
+              width: 100%;
+              padding: 0.75rem;
+              border: 2px solid #8fe9ff;
+              border-radius: 0.5rem;
+              outline: none;
+            '
+          />
+        </label>
+
+        <label style="color: #54278f; font-weight: 600;">
+          Message
+          <textarea
+            name='message'
+            rows='5'
+            required
+            style='
+              width: 100%;
+              padding: 0.75rem;
+              border: 2px solid #8fe9ff;
+              border-radius: 0.5rem;
+              outline: none;
+              resize: vertical;
+            '
+          ></textarea>
+        </label>
+<Bouton>Envoyer</Bouton>
+       
+      </form>
+    </div>
+  </section>
+</Layout>
