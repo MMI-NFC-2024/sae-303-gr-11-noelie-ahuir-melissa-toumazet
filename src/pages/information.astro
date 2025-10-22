@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from 'astro:assets';
 import * as Plot from "@observablehq/plot";
+import Train from '../../public/train2.webp';
 import CarteGareTouriste from "../components/carte-gare-touriste.astro";
 import GraphGareDpt from "../components/graph-gare-dpt.astro";
 import CarteGareDpt from "../components/carte-gare-dpt.astro";
@@ -144,11 +146,7 @@ import GraphTourismeFerroviaire from "../components/graph-tourisme-ferroviaire.a
     <section class="mx-6 md:mx-20 mt-12">
       <div class="flex flex-col lg:flex-row items-center gap-10">
         <div class="flex-1 max-w-[350px]">
-          <img
-            src="/../../public/train2.webp"
-            alt="Train touristique"
-            class="rounded-lg shadow-lg w-full object-cover"
-          />
+          <Image src={Train} alt="Un train" />
         </div>
 
         <div class="flex-1 text-justify leading-relaxed text-gray-800 space-y-4">

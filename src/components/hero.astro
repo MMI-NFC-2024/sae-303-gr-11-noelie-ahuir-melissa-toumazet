@@ -1,10 +1,14 @@
 ---
-
+import { Image } from 'astro:assets';
+import Train from '../../public/train.webp';
 ---
 
 <section class="relative w-full h-[80vh] sm:h-screen mt-[4rem]">
-    <img
-      src="/../../public/train.webp"
+    <Image
+      src={Train}
+      alt="Train"
+      class="w-full h-full object-cover brightness-[0.7]"
+    />
       alt="Train"
       class="w-full h-full object-cover brightness-[0.7]"
     />
