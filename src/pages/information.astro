@@ -9,11 +9,188 @@ import CarteTrajet from "../components/carte-trajet.astro";
 ---
 
 <Layout>
-  <h1 class="text-2xl">Information</h1>
-  <p>Voici quelques informations utiles.</p>
-  <CarteGareTouriste />
-  <GraphGareDpt />
-  <CarteGareDpt />
-  <Camembert />
-  <CarteTrajet />
+<style>
+  .section-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    margin-top: 2rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .text-content {
+    flex: 1 1 60%;
+    text-align: justify;
+  }
+
+  .carte-container {
+    flex: 1 1 35%;
+    max-width: 600px;
+  }
+
+  .carte-container :global(svg),
+  .carte-container :global(canvas),
+  .carte-container :global(div) {
+    width: 100%;
+    height: auto;
+  }
+
+  .text-after-graph {
+    margin-left: 4rem;
+    margin-right: 4rem;
+    margin-top: 2rem;
+    text-align: justify;
+  }
+
+  /* --- Nouvelle section pour le graphique Camembert et le texte à côté --- */
+  .camembert-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .camembert-container {
+    flex: 1 1 40%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .camembert-container :global(svg),
+  .camembert-container :global(canvas),
+  .camembert-container :global(div) {
+    width: 90%; /* réduit légèrement le graphique */
+    height: auto;
+  }
+
+  .text-camembert {
+    flex: 1 1 55%;
+    text-align: justify;
+  }
+
+  h2 {
+    text-align: center;
+    width: 100%;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 768px) {
+    .section-container {
+      flex-direction: column;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+    .carte-container {
+      max-width: 100%;
+      margin-top: 1.5rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+    }
+
+    .text-after-graph {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+    .camembert-section {
+      flex-direction: column;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+    .camembert-container :global(svg),
+    .camembert-container :global(canvas),
+    .camembert-container :global(div) {
+      width: 100%;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<br><br>
+<div class="section-container">
+  <div class="text-content">
+    <h1><strong>Les transports en commun et le tourisme en France : une cartographie essentielle</strong></h1>
+    <br>
+    <p>
+      Dans le monde actuel, les <strong>transports en commun</strong> jouent un rôle crucial pour permettre aux individus de se déplacer rapidement et à moindre coût. 
+      Ils facilitent l’accès aux villes et aux sites touristiques, rendant les voyages plus accessibles à un large public.<br> 
+      Grâce à des réseaux bien développés, les touristes peuvent explorer de nombreuses destinations sans dépendre <br>de la voiture individuelle. 
+      Ces modes de transport contribuent aussi à réduire l’impact environnemental lié aux déplacements. <br>
+      Cependant, l’efficacité des transports en commun varie selon les régions, influençant ainsi l’attractivité touristique.
+    </p>
+    <p>
+      Pour mieux comprendre cette relation, la carte ci-dessous illustre la répartition des <strong>points touristiques</strong> majeurs en France ainsi que les <strong>gares ferroviaires</strong>. 
+      Cette visualisation permet de voir rapidement où se trouvent les infrastructures clés qui soutiennent le tourisme par train.
+    </p>
+  </div>
+
+  <div class="carte-container">
+    <CarteGareTouriste />
+  </div>
+</div>
+
+<GraphGareDpt />
+
+<div class="text-after-graph">
+  <p>
+    Le graphique précédent présente le nombre de <strong>gares ferroviaires par département</strong> en France. 
+    On observe que si certaines régions bénéficient d’un réseau ferroviaire dense, d’autres départements en sont moins dotés, 
+    créant ainsi des disparités dans l’accès au transport en commun.
+  </p>
+  <br><br>
+  <p>
+    Cette disparité se reflète également dans la carte ci-dessous qui reprend visuellement cette répartition sous forme géographique. 
+    Elle permet de localiser rapidement les zones où la présence des gares est plus ou moins forte, 
+    ce qui peut impacter directement le tourisme local.
+  </p>
+</div>
+
+<br><br>
+<CarteGareDpt />
+
+<!-- --- Nouvelle section : Camembert + texte à côté --- -->
+<strong><h2>Statut des gares : ouvertes ou fermées ?</h2></strong>
+<div class="camembert-section">
+  <div class="camembert-container">
+    <Camembert />
+  </div>
+
+  <div class="text-camembert">
+    <p>
+      Bien que certaines gares soient peu fréquentées et finissent par fermer, <br>elles jouent un rôle important dans le commerce local et l’accueil des touristes. <br>
+     <br> En effet, même des gares moins visitées peuvent favoriser<br> le développement économique et renforcer l’attractivité d’une région.<br>
+    </p>
+<br>
+    <p>
+      Ces statistiques montrent l’importance de maintenir un réseau ferroviaire actif,<br> car elles sont le lien direct avec les infrastructures touristiques <br>
+      et les autres modes de transport.
+    </p>
+  </div>
+</div>
+
+<CarteTrajet />
 </Layout>
