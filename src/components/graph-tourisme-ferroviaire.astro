@@ -1,0 +1,125 @@
+---
+---
+<div class="flex flex-col items-center justify-center my-10 px-4">
+  <h3 class="text-[#54278f] text-2xl md:text-3xl font-semibold text-center mb-2">
+    Tourisme et réseau ferroviaire
+  </h3>
+  <p class="text-gray-700 text-center mb-6">
+    Indicateurs clés : accessibilité, densité et volume global
+  </p>
+
+  <div id="plot-tourisme" class="flex justify-center overflow-x-auto w-full"></div>
+</div>
+
+<script type="module">
+  import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+  import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
+
+  async function initGraph() {
+    // 📦 Chargement des données depuis /public
+    const [garesOuvertes, lieuxTouristiques] = await Promise.all([
+      fetch("/garesOuvertes.json").then((r) => r.json()),
+      fetch("/sitesAccessibles.json").then((r) => r.json()),
+    ]);
+
+    // 📊 Calcul des indicateurs
+    const totalGares = garesOuvertes.length;
+    const totalSites = lieuxTouristiques.length;
+    const sitesParGare = +(totalSites / totalGares).toFixed(1);
+    const pourcentageAccessibles = +((25110 * 0.072).toFixed(1)); // si tu veux ajouter les accessibles (à adapter selon tes données)
+
+    console.log("Total gares :", totalGares);
+    console.log("Total sites :", totalSites);
+    console.log("Sites par gare :", sitesParGare);
+
+    // 📈 Création du graphique
+    const chart = Plot.plot({
+      width: window.innerWidth < 768 ? 400 : 700,
+      height: 400,
+      marginLeft: 220,
+      marginRight: 100,
+
+      title: "Tourisme et réseau ferroviaire",
+      subtitle: "Indicateurs clés : accessibilité, densité et volume global",
+
+      x: {
+        label: "Valeur",
+        grid: true,
+      },
+      y: {
+        label: null,
+        domain: [
+          "Sites touristiques moyens par gare",
+          "Nombre total de gares ouvertes",
+          "Nombre total de sites touristiques",
+        ].reverse(),
+        gap: 10,
+      },
+
+      color: {
+        legend: false,
+      },
+
+      marks: [
+        // Barres
+        Plot.barX(
+          [
+            {
+              indicateur: "Sites touristiques moyens par gare",
+              valeur: sitesParGare,
+            },
+            {
+              indicateur: "Nombre total de gares ouvertes",
+              valeur: totalGares,
+            },
+            {
+              indicateur: "Nombre total de sites touristiques",
+              valeur: totalSites,
+            },
+          ],
+          {
+            x: "valeur",
+            y: "indicateur",
+            fill: "#54278f",
+            title: (d) => `${d.indicateur} : ${d.valeur}`,
+          }
+        ),
+
+        // Valeurs numériques à droite
+        Plot.text(
+          [
+            {
+              indicateur: "Sites touristiques moyens par gare",
+              valeur: sitesParGare,
+            },
+            {
+              indicateur: "Nombre total de gares ouvertes",
+              valeur: totalGares,
+            },
+            {
+              indicateur: "Nombre total de sites touristiques",
+              valeur: totalSites.toLocaleString("fr-FR"),
+            },
+          ],
+          {
+            x: "valeur",
+            y: "indicateur",
+            text: (d) => d.valeur,
+            dx: 5,
+            textAnchor: "start",
+            fill: "#333",
+            fontSize: 12,
+            fontWeight: "bold",
+          }
+        ),
+      ],
+    });
+
+    // 🖼️ Insertion du graphique
+    const container = document.getElementById("plot-tourisme");
+    container.innerHTML = "";
+    container.append(chart);
+  }
+
+  initGraph();
+</script>

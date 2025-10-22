@@ -1,33 +1,24 @@
 ---
 ---
+<div class="flex flex-col items-center mx-auto my-10 text-center px-4">
+  <h4 class="text-[#54278f] text-2xl md:text-3xl font-semibold mb-4">
+    Nombre de gares par département
+  </h4>
 
-<style>
-  #graphique-gares {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 2rem auto;
-  }
+  <div class="mb-6">
+    <label for="filter" class="text-gray-700 mr-2">Afficher :</label>
+    <select
+      id="filter"
+      class="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-800 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#54278f]"
+    >
+      <option value="10">Top 10</option>
+      <option value="20">Top 20</option>
+      <option value="50">Top 50</option>
+      <option value="all" selected>Tous les départements</option>
+    </select>
+  </div>
 
-  h2 {
-    text-align: center;
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    color: #54278f;
-  }
-
-  #plot-gares {
-    overflow-x: auto;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-</style>
-
-<div id="graphique-gares">
-  <h4>Nombre de gares par département</h4>
-  <div id="plot-gares"></div>
+  <div id="plot-gares" class="overflow-x-auto w-full flex justify-center"></div>
 </div>
 
 <script type="module">
@@ -35,53 +26,81 @@
   import * as Plot from "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm";
 
   async function initGraphique() {
-    // ✅ Chargement du fichier JSON déjà agrégé (avec le bon nom)
-    const garesParDepartementNom = await fetch("/garesParDepartementNom.json").then(r => r.json());
+    const data = await fetch("/garesParDepartementNom.json").then(r => r.json());
+    const container = document.getElementById("plot-gares");
+    const select = document.getElementById("filter");
 
-    console.log(`✅ Données chargées : ${garesParDepartementNom.length} départements`);
+    function renderChart(limit) {
+      container.innerHTML = "";
 
-    // ✅ Création du graphique
-    const chart = Plot.plot({
-      width: 2000,
-      height: 700,
-      marginBottom: 270,
-      marginTop: 50,
+      let filteredData = [...data].sort((a, b) => b.count - a.count);
+      if (limit !== "all") filteredData = filteredData.slice(0, +limit);
 
-      y: {
-        label: "Nombre de gares",
-        labelOffset: 40,
-        tickSize: 6,
-        tickFormat: "d"
-      },
-      x: {
-        label: null,
-        domain: garesParDepartementNom
-          .sort((a, b) => b.count - a.count)
-          .map(d => d.departement),
-        tickRotate: -45,
-        tickSize: 0
-      },
-      color: {
-        type: "quantize",
-        domain: [0, d3.max(garesParDepartementNom, d => d.count)],
-        range: d3.schemePurples[6],
-        label: "Nombre de gares"
-      },
-      marks: [
-        Plot.barY(garesParDepartementNom, {
-          x: "departement",
-          y: "count",
-          fill: d => d.count,
-          title: d => `${d.departement} : ${d.count} gares`
-        })
-      ],
-      style: {
-        fontSize: "20px",
-        fontWeight: "bold"
-      }
+      // largeur dynamique : dépend du nombre de départements et de la taille d’écran
+      const screenWidth = window.innerWidth;
+      const baseWidth = screenWidth < 640 ? 800 : screenWidth < 1024 ? 1400 : 2200;
+      const dynamicWidth =
+        limit === "all"
+          ? Math.max(baseWidth, filteredData.length * (screenWidth < 768 ? 20 : 30))
+          : Math.max(baseWidth / 2, filteredData.length * (screenWidth < 768 ? 25 : 50));
+
+      const chart = Plot.plot({
+        width: dynamicWidth,
+        height: screenWidth < 640 ? 500 : 650,
+        marginBottom: screenWidth < 768 ? 120 : 160,
+        marginTop: 40,
+        x: {
+          label: null,
+          domain: filteredData.map(d => d.departement),
+          tickRotate: -45,
+          tickSize: 0,
+        },
+        y: {
+          label: "Nombre de gares",
+          tickFormat: "d",
+        },
+        color: {
+          type: "quantize",
+          domain: [0, d3.max(filteredData, d => d.count)],
+          range: d3.schemePurples[6],
+        },
+        marks: [
+          Plot.barY(filteredData, {
+            x: "departement",
+            y: "count",
+            fill: d => d.count,
+            title: d => `${d.departement} : ${d.count} gares`
+          }),
+          Plot.text(filteredData, {
+            x: "departement",
+            y: d => d.count + 3,
+            text: d => d.count,
+            textAnchor: "middle",
+            fontSize: screenWidth < 640 ? 8 : 12,
+            fill: "#333",
+            fontWeight: "600"
+          })
+        ],
+        style: {
+          fontSize: screenWidth < 640 ? "10px" : "14px",
+          fontWeight: "500"
+        },
+      });
+
+      container.append(chart);
+    }
+
+    // Premier affichage
+    renderChart("all");
+
+    // Réaffiche quand on change le filtre
+    select.addEventListener("change", e => renderChart(e.target.value));
+
+    // Réaffiche automatiquement si la fenêtre est redimensionnée
+    window.addEventListener("resize", () => {
+      const current = select.value;
+      renderChart(current);
     });
-
-    document.getElementById("plot-gares").append(chart);
   }
 
   initGraphique();

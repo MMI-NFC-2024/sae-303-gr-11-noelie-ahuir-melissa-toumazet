@@ -1,72 +1,24 @@
----
----
-
-<style>
-  .select-couche {
-    margin-bottom: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    border: 1px solid #9d99c7;
-    background: #f9f8ff;
-    font-size: 1rem;
-  }
-
-  #plot-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: relative;
-  }
-
-  .legende {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid #d0d0d0;
-    border-radius: 6px;
-    padding: 0.5rem 0.8rem;
-    font-size: 0.9rem;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .legende-item {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-  }
-
-  .dot.gares {
-    background: #8fe9ff;
-  }
-
-  .dot.tourisme {
-    background: #54278f;
-  }
-</style>
-
-<div id="plot-container">
-  <select id="select-couche" class="select-couche">
+<div id="plot-container" class="flex flex-col items-center justify-center relative">
+  <select
+    id="select-couche"
+    class="mb-4 py-2 px-4 rounded-md border border-[#9d99c7] bg-[#f9f8ff] text-base"
+  >
     <option value="Toutes">Toutes</option>
     <option value="Gares">Gares</option>
     <option value="Tourisme">Tourisme</option>
   </select>
 
-  <div id="map-plot"></div>
+  <div id="map-plot" class="w-full max-w-5xl h-[800px] md:h-[600px]"></div>
 
-  <div class="legende">
-    <div class="legende-item"><span class="dot gares"></span> Gares</div>
-    <div class="legende-item"><span class="dot tourisme"></span> Tourisme</div>
+  <div class="legende bg-white/90 border border-[#d0d0d0] rounded-md p-4 text-sm text-[#333] flex flex-col md:flex-row gap-3 items-center">
+    <div class="legende-item flex items-center gap-2">
+      <span class="dot gares w-3 h-3 rounded-full bg-[#8fe9ff]"></span>
+      <span>Gares</span>
+    </div>
+    <div class="legende-item flex items-center gap-2">
+    <span class="dot tourisme w-3 h-3 rounded-full bg-[#54278f]"></span>
+      <span>Tourisme</span>
+    </div>
   </div>
 </div>
 

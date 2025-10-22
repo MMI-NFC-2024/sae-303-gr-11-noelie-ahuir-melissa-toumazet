@@ -1,0 +1,67 @@
+---
+import "leaflet/dist/leaflet.css";
+---
+
+<div id="map2" class="w-full h-[550px] rounded-lg shadow-md"></div>
+
+<script>
+  import L from "leaflet";
+
+  async function initMap() {
+    // Chargement des fichiers JSON
+    const [garesOuvertes, sitesAccessibles] = await Promise.all([
+      fetch("/garesOuvertes.json").then((r) => r.json()),
+      fetch("/sitesAccessibles.json").then((r) => r.json()),
+    ]);
+
+    // Création de la carte centrée sur la France
+    const map = L.map("map2").setView([46.6, 2.4], 6);
+
+    // 🗺️ Fond de carte
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors",
+    }).addTo(map);
+
+    // 📍 Gares ouvertes
+    L.geoJSON(garesOuvertes, {
+      pointToLayer: (f, latlng) =>
+        L.circleMarker(latlng, {
+          radius: 3,
+          fillColor: "#54278f",
+          color: "#54278f",
+          weight: 0.5,
+          fillOpacity: 0.8,
+        }),
+      onEachFeature: (f, layer) => {
+        if (f.properties?.nom) {
+          layer.bindPopup(`<b>${f.properties.nom}</b><br>🚆 Gare ouverte`);
+        }
+      },
+    }).addTo(map);
+
+    // 🌿 Sites touristiques accessibles à -5 km
+    L.geoJSON(sitesAccessibles, {
+      pointToLayer: (f, latlng) =>
+        L.circleMarker(latlng, {
+          radius: 2,
+          fillColor: "#8fe9ff",
+          color: "#8fe9ff",
+          weight: 0.3,
+          fillOpacity: 0.6,
+        }),
+      onEachFeature: (f, layer) => {
+        const nom = f.properties?.nom ?? "Nom inconnu";
+        const categorie = f.properties?.categorie ?? "Catégorie inconnue";
+        const distance =
+          f.distanceGare !== undefined
+            ? f.distanceGare.toFixed(2)
+            : "Inconnue";
+        layer.bindPopup(
+          `<b>${nom}</b><br><i>${categorie}</i><br>🚉 À ${distance} km d’une gare`
+        );
+      },
+    }).addTo(map);
+  }
+
+  initMap();
+</script>

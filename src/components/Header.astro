@@ -1,16 +1,49 @@
 ---
 ---
-
 <header class="bg-[#54278f] text-white py-4 px-6 font-montserrat">
-  <div class="max-w-6xl mx-auto flex items-center justify-between">
-    <h1 class="text-2xl font-bold">Les données prennent le train du voyage</h1>
-    <nav>
-      <ul class="flex space-x-6">
-        <li><a href="/" class="hover:underline">Accueil</a></li>
-        <li><a href="/propos" class="hover:underline">A propos</a></li>
-        <li><a href="/information" class="hover:underline">Information</a></li>
-        <li><a href="/contact" class="hover:underline">Contact</a></li>
+  <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between">
+    
+
+    <!-- Bouton hamburger (mobile) -->
+    <button
+      id="menu-toggle"
+      class="sm:hidden ml-auto flex items-center px-3 py-2 border rounded text-white border-white hover:bg-white hover:text-[#54278f] transition"
+    >
+      <svg class="fill-current h-4 w-4" viewBox="0 0 20 20">
+        <path
+          d="M3 6h14M3 10h14M3 14h14"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+    <!-- Navigation -->
+    <nav id="menu" class="hidden sm:block w-full sm:w-auto mt-3 sm:mt-0">
+      <ul class="flex flex-col sm:flex-row sm:space-x-6 text-center">
+        <li><a href="/" class="block py-2 hover:underline">Accueil</a></li>
+        <li><a href="/propos" class="block py-2 hover:underline">A propos</a></li>
+        <li><a href="/information" class="block py-2 hover:underline">Information</a></li>
+        <li><a href="/contact" class="block py-2 hover:underline">Contact</a></li>
       </ul>
     </nav>
+
+    <!-- Titre -->
+    <h1 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-0 text-center sm:text-left w-full sm:w-auto p-3">
+      Les données prennent le train du voyage
+    </h1>
+
   </div>
 </header>
+
+<script>
+  // ✅ Script simple pour le menu mobile
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("menu");
+
+  toggle.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+    menu.classList.toggle("flex");
+    menu.classList.toggle("flex-col");
+  });
+</script>
