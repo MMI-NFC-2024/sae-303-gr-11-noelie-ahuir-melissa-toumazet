@@ -2,14 +2,14 @@
 import "leaflet/dist/leaflet.css";
 ---
 
-<div id="map" style="height: 600px;"></div>
+<div id="map1" style="height: 600px;"></div>
 
 <script>
   import L from "leaflet";
   import lignesTrain from "../../public/lignesTrain.json";
 
   // Création de la carte centrée sur la France
-  const map = L.map("map").setView([46.6033, 1.883], 6);
+  const map = L.map("map1").setView([46.6033, 1.883], 6);
 
   // Ajout du fond de carte OpenStreetMap
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
