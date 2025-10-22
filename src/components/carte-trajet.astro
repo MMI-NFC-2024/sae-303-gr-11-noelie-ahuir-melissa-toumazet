@@ -1,137 +1,30 @@
 ---
-import { useState } from 'react'; // si tu utilises React, sinon tu peux faire en vanilla
-const jsonUrl = import.meta.env.BASE_URL + 'lignesTrain.json';
+import "leaflet/dist/leaflet.css";
 ---
 
-<style>
-  .select‑couche {
-    margin: 1rem auto;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    border: 1px solid #9d99c7;
-    background: #f9f8ff;
-    font-size: 1rem;
-    display: block;
-    max-width: 300px;
-  }
+<div id="map" style="height: 600px;"></div>
 
-  #map {
-    height: 600px;
-    width: 100%;
-    max-width: 1000px;
-    border: 1px solid #ccc;
-    margin: 0 auto;
-  }
+<script>
+  import L from "leaflet";
+  import lignesTrain from "../../public/lignesTrain.json";
 
-  .legende {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid #d0d0d0;
-    border-radius: 6px;
-    padding: 0.5rem 0.8rem;
-    font-size: 0.9rem;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
+  // Création de la carte centrée sur la France
+  const map = L.map("map").setView([46.6033, 1.883], 6);
 
-  .legende-item {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
+  // Ajout du fond de carte OpenStreetMap
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors"
+  }).addTo(map);
 
-  .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: inline-block;
-  }
-
-  .dot.rfn { background: #8fe9ff; }
-  .dot.fret { background: #ff7f0e; }
-  .dot.passagers { background: #1f77b4; }
-</style>
-
-<div style="position: relative; max-width:1000px; margin:0 auto;">
-  <select id="select‑couche" class="select‑couche">
-    <option value="Toutes">Toutes</option>
-    <option value="fret">Fret</option>
-    <option value="passagers">Passagers</option>
-  </select>
-
-  <div id="map"></div>
-
-  <div class="legende">
-    <div class="legende-item"><span class="dot rfn"></span> Toutes</div>
-    <div class="legende-item"><span class="dot fret"></span> Lignes fret</div>
-    <div class="legende-item"><span class="dot passagers"></span> Lignes passagers</div>
-  </div>
-</div>
-
-<script type="module">
-  import L from 'https://unpkg.com/leaflet/dist/leaflet-src.esm.js';
-
-  let map;
-  let layerGroup;
-  let lignesGeojson;
-
-  function initMap() {
-    map = L.map('map').setView([46.8, 2.5], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    layerGroup = L.layerGroup().addTo(map);
-  }
-
-  function getLineStyle(feature) {
-    const type = (feature.properties?.type || '').toLowerCase();
-    switch(type) {
-      case 'fret':       return { color: '#ff7f0e', weight: 2 };
-      case 'passagers':  return { color: '#1f77b4', weight: 2 };
-      default:           return { color: '#8fe9ff', weight: 2 };
+  // Ajout des lignes ferroviaires (fichier GeoJSON)
+  const layer = L.geoJSON(lignesTrain, {
+    style: {
+      color: "#54278f",
+      weight: 2,
+      opacity: 0.8
     }
-  }
+  }).addTo(map);
 
-  function renderLines(filtre) {
-    if (!lignesGeojson) return;
-    layerGroup.clearLayers();
-
-    const filtered = {
-      ...lignesGeojson,
-      features: lignesGeojson.features.filter(f => {
-        const type = (f.properties?.type || '').toLowerCase();
-        return filtre === 'Toutes'.toLowerCase() || type === filtre;
-      })
-    };
-
-    const layer = L.geoJSON(filtered, {
-      style: getLineStyle
-    });
-    layerGroup.addLayer(layer);
-    if (layer.getBounds().isValid()) {
-      map.fitBounds(layer.getBounds(), { maxZoom: 9 });
-    }
-  }
-
-  async function loadDataAndInit() {
-    try {
-      const resp = await fetch(jsonUrl);
-      lignesGeojson = await resp.json();
-      initMap();
-      renderLines('Toutes');
-
-      const select = document.getElementById('select‑couche');
-      select.addEventListener('change', (e) => {
-        renderLines(e.target.value);
-      });
-    } catch(err) {
-      console.error('Erreur de chargement du fichier JSON :', err);
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', loadDataAndInit);
+  // Ajustement automatique du zoom sur les lignes
+  map.fitBounds(layer.getBounds(), { maxZoom: 9 });
 </script>
