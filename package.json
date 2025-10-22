@@ -15,6 +15,7 @@
     "astro": "^5.13.5",
     "d3": "^7.9.0",
     "jsdom": "^26.1.0",
+    "leaflet": "^1.9.4",
     "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
