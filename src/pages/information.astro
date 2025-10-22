@@ -12,6 +12,7 @@ import GraphTourismeFerroviaire from "../components/graph-tourisme-ferroviaire.a
 ---
 
 <Layout>
+  <br><br><br>
   <div class="space-y-12">
     <!-- Introduction + Carte Touriste -->
     <section class="flex flex-wrap items-start justify-between gap-8 lg:gap-12 mx-4 md:mx-16 mt-8">
@@ -84,17 +85,89 @@ import GraphTourismeFerroviaire from "../components/graph-tourisme-ferroviaire.a
         </div>
       </div>
     </section>
-
-    <!-- Cartes interactives -->
-    <section class="space-y-8 mt-10">
+    <br><br>
+<!-- Cartes interactives -->
+ <h4 class="text-xl font-semibold mb-4">
+        Accessibilité des sites touristiques par le train
+      </h4>
+<section class="space-y-8 mt-10">
+  <div class="flex flex-wrap justify-center gap-6">
+    <div class="flex-1 min-w-[300px] max-w-[45%]">
+      
       <CarteTrajet />
+    </div>
+    <div class="flex-1 min-w-[300px] max-w-[45%]">
       <CarteTouristeLeaflet />
-      <CarteGareAccessibles />
-    </section>
+    </div>
+  </div>
+<br>
+
+<div class="text-justify mx-4 md:mx-16 mt-6 space-y-4">
+  <p>
+    La comparaison de ces cartes révèle que si le réseau ferroviaire couvre une large partie du territoire,
+    tous les sites touristiques ne sont pas forcément bien desservis. <br>Cela souligne l’importance d’une bonne
+    connexion entre les infrastructures ferroviaires et les attractions touristiques.<br><br>
+  </p>
+</div>
+
+<br>
+
+  <!-- Garde la troisième carte en dessous -->
+  <div class="mt-6">
+    <CarteGareAccessibles />
+  </div>
+</section>
+
 
     <!-- Graphique final -->
-    <section class="mt-10">
+    <!-- Graphique final avec texte à gauche -->
+<section class="mt-10 mx-4 md:mx-16">
+  <div class="flex flex-col lg:flex-row items-start lg:items-center gap-8">
+    <!-- Texte à gauche -->
+    <div class="flex-1 text-justify">
+      <br>
+      <p>
+        Ces chiffres montrent que <strong>peu de lieux touristiques sont visités via le train</strong>, <br>
+        ce qui souligne la nécessité d’améliorer les connexions ou d’intégrer <br>
+        d’autres transports en commun pour atteindre les destinations.<br><br>
+      </p>
+    </div>
+
+    <!-- Graphique à droite -->
+    <div class="flex-1 max-w-[600px] w-full">
       <GraphTourismeFerroviaire />
-    </section>
+    </div>
   </div>
+</section>
+  </div><br><br><br>
+
+  <!-- Conclusion -->
+<section class="mt-12 mx-4 md:mx-16">
+  <div class="flex flex-col lg:flex-row items-start gap-8">
+    <!-- Image à gauche -->
+    <div class="flex-1 max-w-[300px] w-full">
+      <img 
+        src="/src/assets/train2.jpg" 
+        alt="Train touristique" 
+        class="rounded-lg shadow-md w-full object-cover"
+      />
+    </div>
+
+    <!-- Texte à droite -->
+    <div class="flex-1 text-justify space-y-4">
+      <h4 class="text-xl md:text-2xl font-semibold mb-2">
+        Conclusion : le train, un moyen de transport écologique mais en mutation
+      </h4>
+
+      <p>
+        Le train reste un moyen de transport <strong>utile et écologique</strong> pour le tourisme, offrant une alternative plus durable à la voiture. Cependant, son accessibilité diminue dans certaines régions avec la fermeture progressive de certaines gares et la hausse des prix. Malgré cela, grâce au train, de nombreux sites touristiques sont visités chaque année.
+      </p>
+
+      <p>
+        Pour ceux qui ne sont pas directement desservis par une gare, d’autres modes de transports en commun viennent compléter le réseau, permettant de limiter l’usage des véhicules individuels. L’enjeu est donc d’<strong>améliorer la complémentarité entre ces moyens</strong> pour continuer à soutenir un tourisme durable et accessible à tous.
+      </p>
+    </div>
+  </div>
+</section>
+  <br><br><br>
 </Layout>
