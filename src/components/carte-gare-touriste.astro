@@ -40,18 +40,39 @@
     });
 
     const container = document.getElementById("map-plot");
-    const select = document.getElementById("select-couche");
+      const select = document.getElementById("select-couche");
 
-    function renderCarte(couche) {
-      container.innerHTML = "";
+      // utility: debounce
+      const debounce = (fn, wait = 100) => {
+        let t;
+        return (...args) => {
+          clearTimeout(t);
+          t = setTimeout(() => fn(...args), wait);
+        };
+      };
 
-      const chart = Plot.plot({
-        width: 1000,
-        height: 800,
-        projection: {
-          type: "mercator",
-          domain: departements
-        },
+      function getDimensions() {
+        const style = getComputedStyle(container);
+        const paddingLeft = parseFloat(style.paddingLeft) || 0;
+        const paddingRight = parseFloat(style.paddingRight) || 0;
+        const width = Math.max(300, Math.min(1200, container.clientWidth - paddingLeft - paddingRight));
+        // height: keep a ratio or use CSS height as fallback
+        const cssHeight = container.clientHeight || 600;
+        const height = Math.max(300, Math.round(cssHeight));
+        return { width, height };
+      }
+
+      function renderCarte(couche, dims = null) {
+        container.innerHTML = "";
+        const { width, height } = dims ?? getDimensions();
+
+        const chart = Plot.plot({
+          width,
+          height,
+          projection: {
+            type: "mercator",
+            domain: departements
+          },
         marks: [
           Plot.geo(departements, {
             fill: "#f2f0f7",
@@ -89,11 +110,25 @@
       });
 
       container.append(chart);
+      return chart;
     }
 
-    renderCarte("Toutes");
+    // initial render
+    let current = renderCarte("Toutes");
 
-    select.addEventListener("change", e => renderCarte(e.target.value));
+    // handle select change
+    select.addEventListener("change", e => {
+      current = renderCarte(e.target.value);
+    });
+
+    // observe resize and re-render with debounce
+    const ro = new ResizeObserver(debounce(() => {
+      const dims = getDimensions();
+      // re-render keeping current selection
+      const couche = select.value || "Toutes";
+      current = renderCarte(couche, dims);
+    }, 120));
+    ro.observe(container);
   }
 
   initCarte();
